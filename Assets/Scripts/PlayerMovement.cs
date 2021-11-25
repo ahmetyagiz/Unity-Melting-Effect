@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (transform.localScale.y < 0.1f)
         {
-            DOTween.KillAll();
+            DOTween.Kill(transform);
             playState = false;
             Invoke(nameof(Restart), 3);
             losePanel.SetActive(true);
@@ -47,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
         if (other.gameObject.CompareTag("CandleCollect"))
         {
             Destroy(other.gameObject);
-            DOTween.KillAll();
+            DOTween.Kill(transform);
             transform.DOScaleY(1, 0.25f).OnComplete(() =>
             {
                 transform.DOScaleY(0, 8);
@@ -56,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (other.gameObject.CompareTag("Finish")) //Oyun Bitti
         {
-            DOTween.KillAll();
+            DOTween.Kill(transform);
 
             playState = false;
 
@@ -69,7 +69,7 @@ public class PlayerMovement : MonoBehaviour
         if (other.gameObject.CompareTag("Obstacle"))
         {
             Destroy(other.gameObject);
-            DOTween.KillAll();
+            DOTween.Kill(transform);
             transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y - 0.25f, transform.localScale.z);
             transform.DOScaleY(0, 8);
         }
