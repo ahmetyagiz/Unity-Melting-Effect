@@ -6,6 +6,7 @@ TagManager:
   tags:
   - CandleCollect
   - Obstacle
+  - Booster
   layers:
   - Default
   - TransparentFX

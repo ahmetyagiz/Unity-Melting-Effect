@@ -1,24 +1,29 @@
+using System;
+using System.Collections;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody rb;
     private bool playState;
-
     [SerializeField] private Joystick joystick;
-    [SerializeField] private float sideForce;
-    [SerializeField] private float moveSpeed;
+    [SerializeField] private float sideForce, moveSpeed;
     [SerializeField] private float minX, maxX;
     [SerializeField] private GameObject Camera;
-    [SerializeField] private GameObject winPanel, losePanel;
+
+    //Unity Event Kullanýmý
+    [Serializable] public class CanvasEvent : UnityEvent { }
+
+    public CanvasEvent winState;
+    public CanvasEvent loseState;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         playState = true;
-
         transform.DOScaleY(0, 8);
     }
 
@@ -34,10 +39,7 @@ public class PlayerMovement : MonoBehaviour
         {
             DOTween.Kill(transform);
             playState = false;
-            Invoke(nameof(Restart), 3);
-            losePanel.SetActive(true);
-            losePanel.transform.DOScale(1, 1);
-
+            loseState.Invoke(); //Unity Event kullanýmý
             transform.localScale = new Vector3(transform.localScale.x, 0.1f, transform.localScale.z);
         }
     }
@@ -57,13 +59,8 @@ public class PlayerMovement : MonoBehaviour
         if (other.gameObject.CompareTag("Finish")) //Oyun Bitti
         {
             DOTween.Kill(transform);
-
             playState = false;
-
-            Invoke(nameof(Restart), 3);
-
-            winPanel.SetActive(true);
-            winPanel.transform.DOScale(1, 1);
+            winState.Invoke(); //Unity Event kullanýmý
         }
 
         if (other.gameObject.CompareTag("Obstacle"))
@@ -73,10 +70,17 @@ public class PlayerMovement : MonoBehaviour
             transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y - 0.25f, transform.localScale.z);
             transform.DOScaleY(0, 8);
         }
+
+        if (other.gameObject.CompareTag("Booster"))
+        {
+            StartCoroutine(nameof(SpeedBoostRoutine));
+        }
     }
 
-    void Restart()
+    IEnumerator SpeedBoostRoutine()
     {
-        SceneManager.LoadScene("SampleScene");
+        moveSpeed += 3;
+        yield return new WaitForSeconds(1);
+        moveSpeed -= 3;
     }
 }
