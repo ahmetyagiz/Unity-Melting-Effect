@@ -13,7 +13,7 @@ public class ObjectSpawner : MonoBehaviour
     private void Awake()
     {
         //sayilar[0] = Random.Range(0,5);
-    }
+    }   
 
     private void Start()
     {
@@ -39,9 +39,9 @@ public class ObjectSpawner : MonoBehaviour
 
         for (int i = 0; i < 2; i++) //Obstacle Spawn
         {
-            for (int j = 2; j < 7; j++)
+            for (int j = 0; j < levelObstacles.Length; j++)
             {
-                Instantiate(levelObjects[j], new Vector3(0, 0, 37.5f + z_increase), Quaternion.identity, levelParent.transform);
+                Instantiate(levelObstacles[j], new Vector3(0, 0, 37.5f + z_increase), Quaternion.identity, levelParent.transform);
 
                 z_increase += 20;
             }            

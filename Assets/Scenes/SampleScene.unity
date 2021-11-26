@@ -1130,12 +1130,12 @@ MonoBehaviour:
   levelObjects:
   - {fileID: 7589417657473378440, guid: 18814a9304770cc44aaa38e3f1b34618, type: 3}
   - {fileID: 5476903471666632610, guid: 4cd5b2b2ac415d14095fca9d80d38f3b, type: 3}
+  levelObstacles:
   - {fileID: 1853618367757432800, guid: 1bcc122972595764588b7301922db1fd, type: 3}
   - {fileID: 3967367894719127175, guid: 8eeae321440988f41ba3345cd393ef69, type: 3}
   - {fileID: 8632766828365514998, guid: 460afd68e16135c4aaa797f03a8a0311, type: 3}
   - {fileID: 8632766828365514998, guid: 7053e2b349fb29a4d95efd64ca64dae8, type: 3}
   - {fileID: 8632766828365514998, guid: a1cab999113cd9449b8057aff61557bf, type: 3}
-  levelObstacles: []
   levelParent: {fileID: 2064769918}
 --- !u!1 &1394021322
 GameObject:
