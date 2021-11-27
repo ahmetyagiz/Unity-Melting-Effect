@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectSpawner : MonoBehaviour
@@ -8,21 +9,14 @@ public class ObjectSpawner : MonoBehaviour
 
     int z_increase;
 
-    int[] sayilar = {0,1,2,3,4};
-
-    private void Awake()
-    {
-        //sayilar[0] = Random.Range(0,5);
-    }   
-
     private void Start()
     {
-        print(sayilar[2]);
+        int sayi = Random.Range(0, levelObstacles.Length);
 
         for (int i = 0; i < 11; i++) //Candle Part Spawn
         {
-            Instantiate(levelObjects[0], new Vector3(Random.Range(-4 , 4), 1, 25 + z_increase), Quaternion.identity, levelParent.transform);
-            
+            Instantiate(levelObjects[0], new Vector3(Random.Range(-4, 4), 1, 25 + z_increase), Quaternion.identity, levelParent.transform);
+
             z_increase += 20;
         }
 
@@ -37,14 +31,15 @@ public class ObjectSpawner : MonoBehaviour
 
         z_increase = 0;
 
+        levelObstacles.Shuffle(levelObstacles.Length);
+
         for (int i = 0; i < 2; i++) //Obstacle Spawn
         {
             for (int j = 0; j < levelObstacles.Length; j++)
             {
                 Instantiate(levelObstacles[j], new Vector3(0, 0, 37.5f + z_increase), Quaternion.identity, levelParent.transform);
-
                 z_increase += 20;
-            }            
+            }
         }
     }
 }
